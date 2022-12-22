@@ -3,4 +3,5 @@
 La but de l'exo2 est de creer un chat entre client/serveur à l'aide d'une fifo nommé.
 ->Envoyer des messages depuis mon poste va entrainer une très longue lecture et un point de reference qui ne sert à rien donc continue a ecrire ca ne passe rien. Si on se connecte sur ssh (ssh.enseirb-matmeca.fr), on va utiliser une fifo dont le serveur est pret a receuillir les donnees des la frappe d'entree c'est pour cela. 
 ->On lance plusieurs clients entre voisins via la même fifo partagée, si on lance plusieurs clients en même temps, le partage de data ne se fait pas correctement. Il faut un serveur.c implémenté avec le client.c dans le même répertoire ainsi on va garantir les correspondances.
-
+=>A REVOIR.
+***les fifos(mkfifo en jaunes) && les options -R + derniere question (remodelage de l'exo2 et du dernier exo qui fait reference a l'exo4.)
