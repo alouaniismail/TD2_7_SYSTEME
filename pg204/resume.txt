@@ -5,3 +5,44 @@ La but de l'exo2 est de creer un chat entre client/serveur à l'aide d'une fifo 
 ->On lance plusieurs clients entre voisins via la même fifo partagée, si on lance plusieurs clients en même temps, le partage de data ne se fait pas correctement. Il faut un serveur.c implémenté avec le client.c dans le même répertoire ainsi on va garantir les correspondances.
 =>A REVOIR.
 ***les fifos(mkfifo en jaunes) && les options -R + derniere question (remodelage de l'exo2 et du dernier exo qui fait reference a l'exo4.)
+PREMIEREMENT:
+l'exo2:
+il faut savoir qu'il existe 2 versions et le chat à n et la gestion via une clef d'identification en cascade est un plus, d'ailleurs les 2 versions sont ecrites, sans tests, si on pouvait dire qu'on a répondu aux autres questions. D'abord, le code de transfert à apprendre:
+#define BUFFER_SIZE 256
+
+void
+transfer( int fd_in, int fd_out )
+{
+    char buffer[BUFFER_SIZE];
+    ssize_t len_read, wrote, rc;
+	
+    while( 1 ) {
+        len_read = read( fd_in, buffer, BUFFER_SIZE );
+        exit_if( len_read == -1, "read" );
+
+        if ( len_read == 0 ) {
+            /* EOF*/
+            return;
+        }
+        
+        wrote = 0;
+        /*
+         * Si jamais write n'écrit pas assez, on doit boucler pour
+         * tout écrire avant de repasser à read
+         */
+        do{
+            rc = write( fd_out, buffer + wrote, len_read - wrote );
+            exit_if( rc == -1, "write" );
+            wrote += rc;
+        } while( wrote < len_read );
+    }
+}//déjà rencontré dans le 1er td.
+=========================================================================================
+EXO2:(exo1/3 ok.)
+>
+^^^^^^^^^^^^^^^^^^^^^
+L'exo2 de la fifo maitrise.
+la ls en recursif avec le type des fichiers (lstat au lieu de stat , c'est mieux) MAITRISE.
+reste les droits et surtout:
+getpwuid et ctime dans le 3ieme prog_sys de GITHUB.COM sur firefox&.
+FIN_TD2.
